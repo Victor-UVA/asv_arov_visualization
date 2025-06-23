@@ -1,0 +1,92 @@
+[0.114s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build', '--packages-select', 'tank_sim', '--event-handlers', 'console_direct+']
+[0.114s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=False, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=22, event_handlers=['console_direct+'], ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=['tank_sim'], packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0x71ae18c81b20>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x71ae18c81550>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x71ae18c81550>>)
+[0.154s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.154s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.154s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.154s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.154s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.154s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.154s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/vivian/ros2_ws/src/tank_sim'
+[0.154s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.154s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.154s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.154s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.154s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.154s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.154s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.154s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.154s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.182s] DEBUG:colcon.colcon_core.package_identification:Failed to parse potential ROS package manifest in'.': Error(s) in package './package.xml':
+The manifest contains invalid XML:
+XML or text declaration not at start of entity: line 2, column 0
+[0.182s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.182s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.182s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.182s] DEBUG:colcon.colcon_core.package_identification:Python package in '.' passes arguments to the setup() function which requires a different identification extension than 'python'
+[0.183s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.183s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.392s] DEBUG:colcon.colcon_core.package_identification:Package '.' with type 'python' and name 'tank_sim'
+[0.392s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.392s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.392s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.392s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.392s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.419s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[0.420s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[0.422s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 1 installed packages in /home/vivian/ros2_ws/install
+[0.424s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 345 installed packages in /opt/ros/jazzy
+[0.425s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[0.481s] Level 5:colcon.colcon_core.verb:set package 'tank_sim' build argument 'cmake_args' from command line to 'None'
+[0.481s] Level 5:colcon.colcon_core.verb:set package 'tank_sim' build argument 'cmake_target' from command line to 'None'
+[0.481s] Level 5:colcon.colcon_core.verb:set package 'tank_sim' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.481s] Level 5:colcon.colcon_core.verb:set package 'tank_sim' build argument 'cmake_clean_cache' from command line to 'False'
+[0.481s] Level 5:colcon.colcon_core.verb:set package 'tank_sim' build argument 'cmake_clean_first' from command line to 'False'
+[0.481s] Level 5:colcon.colcon_core.verb:set package 'tank_sim' build argument 'cmake_force_configure' from command line to 'False'
+[0.481s] Level 5:colcon.colcon_core.verb:set package 'tank_sim' build argument 'ament_cmake_args' from command line to 'None'
+[0.481s] Level 5:colcon.colcon_core.verb:set package 'tank_sim' build argument 'catkin_cmake_args' from command line to 'None'
+[0.481s] Level 5:colcon.colcon_core.verb:set package 'tank_sim' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.481s] DEBUG:colcon.colcon_core.verb:Building package 'tank_sim' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/vivian/ros2_ws/src/tank_sim/build/tank_sim', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/vivian/ros2_ws/src/tank_sim/install/tank_sim', 'merge_install': False, 'path': '/home/vivian/ros2_ws/src/tank_sim', 'symlink_install': False, 'test_result_base': None}
+[0.481s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.483s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.483s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/vivian/ros2_ws/src/tank_sim'
+[0.485s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.486s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.486s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.267s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/vivian/ros2_ws/src/tank_sim': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/vivian/ros2_ws/src/tank_sim/build/tank_sim/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/vivian/ros2_ws/src/tank_sim/install/tank_sim/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base build/tank_sim build --build-base /home/vivian/ros2_ws/src/tank_sim/build/tank_sim/build install --record /home/vivian/ros2_ws/src/tank_sim/build/tank_sim/install.log --single-version-externally-managed
+[1.805s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/vivian/ros2_ws/src/tank_sim' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/vivian/ros2_ws/src/tank_sim/build/tank_sim/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/vivian/ros2_ws/src/tank_sim/install/tank_sim/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base build/tank_sim build --build-base /home/vivian/ros2_ws/src/tank_sim/build/tank_sim/build install --record /home/vivian/ros2_ws/src/tank_sim/build/tank_sim/install.log --single-version-externally-managed
+[1.808s] Level 1:colcon.colcon_core.environment:checking '/home/vivian/ros2_ws/src/tank_sim/install/tank_sim' for CMake module files
+[1.809s] Level 1:colcon.colcon_core.environment:checking '/home/vivian/ros2_ws/src/tank_sim/install/tank_sim' for CMake config files
+[1.809s] Level 1:colcon.colcon_core.environment:checking '/home/vivian/ros2_ws/src/tank_sim/install/tank_sim/lib'
+[1.810s] Level 1:colcon.colcon_core.environment:checking '/home/vivian/ros2_ws/src/tank_sim/install/tank_sim/bin'
+[1.810s] Level 1:colcon.colcon_core.environment:checking '/home/vivian/ros2_ws/src/tank_sim/install/tank_sim/lib/pkgconfig/tank_sim.pc'
+[1.810s] Level 1:colcon.colcon_core.environment:checking '/home/vivian/ros2_ws/src/tank_sim/install/tank_sim/lib/python3.12/site-packages'
+[1.810s] Level 1:colcon.colcon_core.shell:create_environment_hook('tank_sim', 'pythonpath')
+[1.811s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/vivian/ros2_ws/src/tank_sim/install/tank_sim/share/tank_sim/hook/pythonpath.ps1'
+[1.811s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/vivian/ros2_ws/src/tank_sim/install/tank_sim/share/tank_sim/hook/pythonpath.dsv'
+[1.812s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/vivian/ros2_ws/src/tank_sim/install/tank_sim/share/tank_sim/hook/pythonpath.sh'
+[1.813s] Level 1:colcon.colcon_core.environment:checking '/home/vivian/ros2_ws/src/tank_sim/install/tank_sim/bin'
+[1.813s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(tank_sim)
+[1.813s] INFO:colcon.colcon_core.shell:Creating package script '/home/vivian/ros2_ws/src/tank_sim/install/tank_sim/share/tank_sim/package.ps1'
+[1.814s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/vivian/ros2_ws/src/tank_sim/install/tank_sim/share/tank_sim/package.dsv'
+[1.814s] INFO:colcon.colcon_core.shell:Creating package script '/home/vivian/ros2_ws/src/tank_sim/install/tank_sim/share/tank_sim/package.sh'
+[1.815s] INFO:colcon.colcon_core.shell:Creating package script '/home/vivian/ros2_ws/src/tank_sim/install/tank_sim/share/tank_sim/package.bash'
+[1.816s] INFO:colcon.colcon_core.shell:Creating package script '/home/vivian/ros2_ws/src/tank_sim/install/tank_sim/share/tank_sim/package.zsh'
+[1.816s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/vivian/ros2_ws/src/tank_sim/install/tank_sim/share/colcon-core/packages/tank_sim)
+[1.817s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[1.817s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[1.817s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[1.817s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[1.825s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[1.825s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[1.825s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[1.848s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[1.848s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/vivian/ros2_ws/src/tank_sim/install/local_setup.ps1'
+[1.850s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/vivian/ros2_ws/src/tank_sim/install/_local_setup_util_ps1.py'
+[1.852s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/vivian/ros2_ws/src/tank_sim/install/setup.ps1'
+[1.854s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/vivian/ros2_ws/src/tank_sim/install/local_setup.sh'
+[1.855s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/vivian/ros2_ws/src/tank_sim/install/_local_setup_util_sh.py'
+[1.856s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/vivian/ros2_ws/src/tank_sim/install/setup.sh'
+[1.858s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/vivian/ros2_ws/src/tank_sim/install/local_setup.bash'
+[1.859s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/vivian/ros2_ws/src/tank_sim/install/setup.bash'
+[1.860s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/vivian/ros2_ws/src/tank_sim/install/local_setup.zsh'
+[1.861s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/vivian/ros2_ws/src/tank_sim/install/setup.zsh'
