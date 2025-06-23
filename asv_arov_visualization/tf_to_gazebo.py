@@ -47,9 +47,9 @@ class TFToGazebo(Node):
 
 def main():
     rclpy.init()
-    node = TFToGazebo()
-    rclpy.spin(node)
-    rclpy.shutdown()
+    tf_to_gazebo = TFToGazebo()
+    rclpy.spin(tf_to_gazebo)
+    # rclpy.shutdown()
 
 if __name__ == '__main__':
     main()
