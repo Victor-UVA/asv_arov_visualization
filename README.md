@@ -12,4 +12,5 @@ Grab STL files from the 'Gazebo Models' folder on OneDrive and add them to the m
 ros2 launch asv_arov_visualization sim_launch.py
 ```
 ## Helpful stuff
-[Gazebo Harmonic Tutorials](https://gazebosim.org/docs/harmonic/tutorials/)
+[Gazebo Harmonic Tutorials](https://gazebosim.org/docs/harmonic/tutorials/)\
+[General ROS 2 Stuff](https://automaticaddison.com/tutorials/#ROS_2)
