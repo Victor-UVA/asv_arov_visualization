@@ -2,7 +2,8 @@
 ## Install ROS 2 Jazzy and Gazebo Harmonic
 ```
 sudo apt install ros-jazzy-desktop
-sudo apt-get install ros-jazzy-ros-gz
+sudo apt install ros-jazzy-ros-gz
+sudo apt install ros-jazzy-ros-gz-bridge
 ```
 ## STL Meshes
 Grab STL files from the 'Gazebo Models' folder on OneDrive and add them to the meshes folder. The file paths in tank_world.sdf shouldn't need renaming, hopefully.
