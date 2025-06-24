@@ -12,5 +12,4 @@ Grab STL files from the vehicle models folder and add them to the meshes folder.
 ros2 launch asv_arov_visualization sim_launch.py
 ```
 ## Helpful stuff
-[Gazebo Harmonic Tutorials](https://gazebosim.org/docs/harmonic/tutorials/) <- Every tutorial\
-[Gazebo Movement Tutorial](https://gazebosim.org/docs/harmonic/moving_robot/) <- Movement specific
+[Gazebo Harmonic Tutorials](https://gazebosim.org/docs/harmonic/tutorials/)
