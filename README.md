@@ -5,9 +5,11 @@ sudo apt install ros-jazzy-desktop
 sudo apt-get install ros-jazzy-ros-gz
 ```
 ## STL Meshes
-Grab STL files from the vehicle models folder and add them to the meshes folder.
-## Running stuff
-```
+Grab STL files from the vehicle models folder and add them to the meshes folder. The file paths in tank_world.sdf shouldn't need renaming (I hope).
 
+## Opening the world file
 ```
-
+ros2 launch asv_arov_visualization sim_launch.py
+```
+## Helpful stuff
+[Gazebo Harmonic Tutorials](https://gazebosim.org/docs/harmonic/tutorials/)
