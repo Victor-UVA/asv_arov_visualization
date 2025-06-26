@@ -27,4 +27,24 @@ def generate_launch_description():
         output="screen"
     )
 
-    return LaunchDescription([gazebo_sim, rviz_node])
+    bridge_asv_node = Node(
+        package='ros_gz_bridge',
+        executable='parameter_bridge',
+        name='bridge_asv_amcl',
+        arguments=[
+            '/asv/amcl_pose@geometry_msgs/msg/PoseWithCovarianceStamped@gz.msgs.PoseWithCovariance'
+        ],
+        output='screen'
+    )
+
+    bridge_arov_node = Node(
+        package='ros_gz_bridge',
+        executable='parameter_bridge',
+        name='bridge_arov_amcl',
+        arguments=[
+            '/arov/amcl_pose@geometry_msgs/msg/PoseWithCovarianceStamped@gz.msgs.PoseWithCovariance'
+        ],
+        output='screen'
+    )
+
+    return LaunchDescription([gazebo_sim, rviz_node, bridge_asv_node, bridge_arov_node])
