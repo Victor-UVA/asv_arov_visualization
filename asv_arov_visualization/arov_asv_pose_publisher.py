@@ -36,13 +36,14 @@ def at_targets(poses, targets, tolerance) :
 class AROVASVPosePublisher(Node) :
     def __init__(self) :
         super().__init__('arov_asv_pose_publisher')
-        self.arov_publisher = self.create_publisher(PoseWithCovarianceStamped, 'arov/amcl_pose')
-        self.asv_publisher = self.create_publisher(PoseWithCovarianceStamped, 'asv/amcl_pose')
+        self.arov_publisher = self.create_publisher(PoseWithCovarianceStamped, 'arov/amcl_pose', 10)
+        self.asv_publisher = self.create_publisher(PoseWithCovarianceStamped, 'asv/amcl_pose', 10)
 
         # Simulation Params
         self.dt = 0.1 # Time between ticks, used for speeds and for clock rate
         self.net_radius = 10 # Radius of nets
-        self.net_depth = 10 # z coordinate of bottom of cleaning surface, assumes z = 0 is the top of the cleaning surface
+        self.net_height = 0 # z coordinate of top of cleaning surface
+        self.net_depth = 10 # z coordinate of bottom of cleaning surface
         self.net_poses = [Pose(), Pose()] # Poses of centers of nets
         self.net_poses[1].position.x = -50
         self.arov_clearance = 2 # How far from the net the AROV tries to be while cleaning
@@ -88,6 +89,7 @@ class AROVASVPosePublisher(Node) :
                 new_arov_pose = Pose()
                 new_arov_pose.position.x = self.arov_poses[-1].position.x + arov_distance * math.cos(theta)
                 new_arov_pose.position.y = self.arov_poses[-1].position.y + arov_distance * math.sin(theta)
+                new_arov_pose.position.z = self.arov_poses[-1].position.z
                 current_orientation = euler_from_quaternion(self.arov_poses[-1].orientation)
                 new_arov_pose.orientation = quaternion_from_euler([current_orientation[0], current_orientation[1], psi - math.pi / 2])
                 self.arov_drive_to_pose(new_arov_pose)
@@ -101,10 +103,20 @@ class AROVASVPosePublisher(Node) :
                 new_arov_pose2.orientation.w = new_arov_pose.orientation.w
                 self.arov_drive_to_pose(new_arov_pose2)
                 new_arov_pose3 = Pose()
-                new_arov_pose3.position.x = new_arov_pose.position.x + self.cleaning_fidelity * math.cos(psi)
-                new_arov_pose3.position.y = new_arov_pose.position.y + self.cleaning_fidelity * math.sin(psi)
-                new_arov_pose3.orientation = quaternion_from_euler([current_orientation[0], current_orientation[1], psi - math.pi / 2])
+                new_arov_pose3.position.x = new_arov_pose.position.x
+                new_arov_pose3.position.y = new_arov_pose.position.y
+                new_arov_pose3.position.z = self.net_height
+                new_arov_pose3.orientation.x = new_arov_pose.orientation.x
+                new_arov_pose3.orientation.y = new_arov_pose.orientation.y
+                new_arov_pose3.orientation.z = new_arov_pose.orientation.z
+                new_arov_pose3.orientation.w = new_arov_pose.orientation.w
                 self.arov_drive_to_pose(new_arov_pose3)
+                new_arov_pose4 = Pose()
+                new_arov_pose4.position.x = new_arov_pose.position.x + self.cleaning_fidelity * math.cos(psi)
+                new_arov_pose4.position.y = new_arov_pose.position.y + self.cleaning_fidelity * math.sin(psi)
+                new_arov_pose4.position.z = new_arov_pose.position.z
+                new_arov_pose4.orientation = quaternion_from_euler([current_orientation[0], current_orientation[1], psi - math.pi / 2])
+                self.arov_drive_to_pose(new_arov_pose4)
                 self.asv_turn_to_yaw(psi)
                 self.asv_drive_distance((self.net_radius + self.asv_clearance) / r * self.cleaning_fidelity, False)
         if self.do_cv_visualization :
@@ -155,11 +167,13 @@ class AROVASVPosePublisher(Node) :
             new_asv_pose = Pose()
             new_asv_pose.position.x = self.asv_poses[-1].position.x + dx
             new_asv_pose.position.y = self.asv_poses[-1].position.y + dy
+            new_asv_pose.position.z = self.asv_poses[-1].position.z
             new_asv_pose.orientation = self.asv_poses[-1].orientation
             if follow :
                 new_arov_pose = Pose()
                 new_arov_pose.position.x = self.arov_poses[-1].position.x + dx
                 new_arov_pose.position.y = self.arov_poses[-1].position.y + dy
+                new_arov_pose.position.z = self.arov_poses[-1].position.z
                 new_arov_pose.orientation = self.arov_poses[-1].orientation
             else :
                 new_arov_pose = self.arov_poses[-1]
