@@ -99,7 +99,7 @@ class AROVASVPosePublisher(Node) :
                 self.arov_drive_to_pose(new_arov_pose)
                 new_arov_pose2 = Pose()
                 new_arov_pose2.position.x = self.arov_poses[-1].position.x + arov_distance2 * math.cos(theta)
-                new_arov_pose.position.y = self.arov_poses[-1].position.y + arov_distance2 * math.sin(theta)
+                new_arov_pose2.position.y = self.arov_poses[-1].position.y + arov_distance2 * math.sin(theta)
                 new_arov_pose2.position.z = self.net_depth if self.dive_rise_switch == -1 else self.net_height
                 new_arov_pose2.orientation.x = new_arov_pose.orientation.x
                 new_arov_pose2.orientation.y = new_arov_pose.orientation.y
