@@ -26,6 +26,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
+            'pose_publisher = arov_asv_pose_publisher:main'
         ],
     },
 )
