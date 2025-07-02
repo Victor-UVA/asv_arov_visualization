@@ -41,7 +41,8 @@ class AROVASVPosePublisher(Node) :
 
         # Simulation Params
         self.dt = 0.1 # Time between ticks, used for speeds and for clock rate
-        self.net_radius = 10 # Radius of nets
+        self.top_of_net_radius = 10 # Radius of top net rim
+        self.bottom_of_net_radius = 8 # Radius of bottom net rim
         self.net_height = 0 # z coordinate of top of cleaning surface
         self.net_depth = 10 # z coordinate of bottom of cleaning surface
         self.net_poses = [Pose(), Pose()] # Poses of centers of nets
@@ -78,25 +79,27 @@ class AROVASVPosePublisher(Node) :
         for n in self.net_poses :
             desired_theta = normalize(math.atan2(n.position.y - self.asv_poses[-1].position.y, n.position.x - self.asv_poses[-1].position.x))
             self.asv_turn_to_yaw(normalize(desired_theta))
-            self.asv_drive_distance(distance_xy(self.asv_poses[-1], n) - self.net_radius - self.asv_clearance, True)
+            self.asv_drive_distance(distance_xy(self.asv_poses[-1], n) - self.top_of_net_radius - self.asv_clearance, True)
             self.asv_turn_to_yaw(normalize(desired_theta + math.pi / 2))
             for i in range(self.cycles) :
                 dx = n.position.x - self.arov_poses[-1].position.x
                 dy = n.position.y - self.arov_poses[-1].position.y
-                r = self.net_radius + self.arov_clearance
+                r1 = (self.top_of_net_radius if self.dive_rise_switch == -1 else self.bottom_of_net_radius) + self.arov_clearance
+                r2 = (self.top_of_net_radius if self.dive_rise_switch == 1 else self.bottom_of_net_radius) + self.arov_clearance
                 theta = math.atan2(dy, dx)
-                psi = normalize((theta + math.pi / 2) - math.asin(self.cleaning_fidelity / 2 / r))
-                arov_distance = distance_xy(self.arov_poses[-1], n) - r
+                psi = normalize((theta + math.pi / 2) - math.asin(self.cleaning_fidelity / 2 / r1))
+                arov_distance1 = distance_xy(self.arov_poses[-1], n) - r1
+                arov_distance2 = distance_xy(self.arov_poses[-1], n) - r2
                 new_arov_pose = Pose()
-                new_arov_pose.position.x = self.arov_poses[-1].position.x + arov_distance * math.cos(theta)
-                new_arov_pose.position.y = self.arov_poses[-1].position.y + arov_distance * math.sin(theta)
+                new_arov_pose.position.x = self.arov_poses[-1].position.x + arov_distance1 * math.cos(theta)
+                new_arov_pose.position.y = self.arov_poses[-1].position.y + arov_distance1 * math.sin(theta)
                 new_arov_pose.position.z = self.arov_poses[-1].position.z
                 current_orientation = euler_from_quaternion(self.arov_poses[-1].orientation)
                 new_arov_pose.orientation = quaternion_from_euler([current_orientation[0], current_orientation[1], psi - math.pi / 2])
                 self.arov_drive_to_pose(new_arov_pose)
                 new_arov_pose2 = Pose()
-                new_arov_pose2.position.x = new_arov_pose.position.x
-                new_arov_pose2.position.y = new_arov_pose.position.y
+                new_arov_pose2.position.x = self.arov_poses[-1].position.x + arov_distance2 * math.cos(theta)
+                new_arov_pose.position.y = self.arov_poses[-1].position.y + arov_distance2 * math.sin(theta)
                 new_arov_pose2.position.z = self.net_depth if self.dive_rise_switch == -1 else self.net_height
                 new_arov_pose2.orientation.x = new_arov_pose.orientation.x
                 new_arov_pose2.orientation.y = new_arov_pose.orientation.y
@@ -111,7 +114,7 @@ class AROVASVPosePublisher(Node) :
                 new_arov_pose3.orientation = quaternion_from_euler([current_orientation[0], current_orientation[1], psi - math.pi / 2])
                 self.arov_drive_to_pose(new_arov_pose3)
                 self.asv_turn_to_yaw(psi)
-                self.asv_drive_distance((self.net_radius + self.asv_clearance) / r * self.cleaning_fidelity, False)
+                self.asv_drive_distance((self.net_radius + self.asv_clearance) / (r1 if self.dive_rise_switch == -1 else r2) * self.cleaning_fidelity, False)
             final_rise_pose = Pose()
             final_rise_pose.position.x = self.arov_poses[-1].position.x
             final_rise_pose.position.y = self.arov_poses[-1].position.y
