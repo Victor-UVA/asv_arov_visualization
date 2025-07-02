@@ -73,6 +73,7 @@ class AROVASVPosePublisher(Node) :
         self.arov_poses = [self.arov_start_pose]
         self.asv_poses = [self.asv_start_pose]
         self.pose_id = 0
+        self.dive_rise_switch = -1
 
         for n in self.net_poses :
             desired_theta = normalize(math.atan2(n.position.y - self.asv_poses[-1].position.y, n.position.x - self.asv_poses[-1].position.x))
@@ -96,29 +97,30 @@ class AROVASVPosePublisher(Node) :
                 new_arov_pose2 = Pose()
                 new_arov_pose2.position.x = new_arov_pose.position.x
                 new_arov_pose2.position.y = new_arov_pose.position.y
-                new_arov_pose2.position.z = self.net_depth
+                new_arov_pose2.position.z = self.net_depth if self.dive_rise_switch == -1 else self.net_height
                 new_arov_pose2.orientation.x = new_arov_pose.orientation.x
                 new_arov_pose2.orientation.y = new_arov_pose.orientation.y
                 new_arov_pose2.orientation.z = new_arov_pose.orientation.z
                 new_arov_pose2.orientation.w = new_arov_pose.orientation.w
+                self.dive_rise_switch = -1 if self.dive_rise_switch == 1 else 1
                 self.arov_drive_to_pose(new_arov_pose2)
                 new_arov_pose3 = Pose()
-                new_arov_pose3.position.x = new_arov_pose.position.x
-                new_arov_pose3.position.y = new_arov_pose.position.y
-                new_arov_pose3.position.z = self.net_height
-                new_arov_pose3.orientation.x = new_arov_pose.orientation.x
-                new_arov_pose3.orientation.y = new_arov_pose.orientation.y
-                new_arov_pose3.orientation.z = new_arov_pose.orientation.z
-                new_arov_pose3.orientation.w = new_arov_pose.orientation.w
+                new_arov_pose3.position.x = new_arov_pose.position.x + self.cleaning_fidelity * math.cos(psi)
+                new_arov_pose3.position.y = new_arov_pose.position.y + self.cleaning_fidelity * math.sin(psi)
+                new_arov_pose3.position.z = new_arov_pose.position.z
+                new_arov_pose3.orientation = quaternion_from_euler([current_orientation[0], current_orientation[1], psi - math.pi / 2])
                 self.arov_drive_to_pose(new_arov_pose3)
-                new_arov_pose4 = Pose()
-                new_arov_pose4.position.x = new_arov_pose.position.x + self.cleaning_fidelity * math.cos(psi)
-                new_arov_pose4.position.y = new_arov_pose.position.y + self.cleaning_fidelity * math.sin(psi)
-                new_arov_pose4.position.z = new_arov_pose.position.z
-                new_arov_pose4.orientation = quaternion_from_euler([current_orientation[0], current_orientation[1], psi - math.pi / 2])
-                self.arov_drive_to_pose(new_arov_pose4)
                 self.asv_turn_to_yaw(psi)
                 self.asv_drive_distance((self.net_radius + self.asv_clearance) / r * self.cleaning_fidelity, False)
+            final_rise_pose = Pose()
+            final_rise_pose.position.x = self.arov_poses[-1].position.x
+            final_rise_pose.position.y = self.arov_poses[-1].position.y
+            final_rise_pose.position.z = self.net_height
+            final_rise_pose.orientation.x = self.arov_poses[-1].orientation.x
+            final_rise_pose.orientation.y = self.arov_poses[-1].orientation.y
+            final_rise_pose.orientation.z = self.arov_poses[-1].orientation.z
+            final_rise_pose.orientation.w = self.arov_poses[-1].orientation.w
+            self.arov_drive_to_pose(final_rise_pose)
         if self.do_cv_visualization :
             for i in range(len(self.asv_poses)) :
                 frame = np.zeros(shape=(self.img_y, self.img_x, 3), dtype=np.uint8)
