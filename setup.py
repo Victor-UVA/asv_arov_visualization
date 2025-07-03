@@ -26,7 +26,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'pose_publisher = arov_asv_pose_publisher:main'
+            'pose_publisher = arov_asv_pose_publisher:main',
+            'fish_spinner = fish_spinner:main'
         ],
     },
 )
