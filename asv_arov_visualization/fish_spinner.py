@@ -19,12 +19,19 @@ class FishSpinner(Node) :
 
         self.declare_parameter('pose_topic', '/amcl_pose')
         self.declare_parameter('start_yaw', 0)
+        self.declare_parameter('x', 0)
+        self.declare_parameter('y', 0)
+        self.declare_parameter('z', 0)
 
         # Simulation Params
         self.fish_pose_topic: str = self.get_parameter('pose_topic').get_parameter_value().string_value # topic to publish fish poses to, implemented as ROS param in case you need to run multiple of this node
-        self.fish_pose = Pose() # fish start pose, don't touch orientation I'm treating it weirdly
+        self.x: float = self.get_parameter('x').get_parameter_value().double_value # Fish school x
+        self.y: float = self.get_parameter('y').get_parameter_value().double_value # Fish school y
+        self.z: float = self.get_parameter('z').get_parameter_value().double_value # Fish school z
         self.euler_roll = 0
         self.euler_pitch = 0
+        self.x_offset = 0 # center of STL x offset from center of fish school
+        self.y_offset = 0 # center of STL y offset from center of fish school
         self.start_euler_yaw: float = self.get_parameter('start_yaw').get_parameter_value().double_value # start yaw in radians, implemented as ROS param in case you want different start yaws between fish nets
         self.dt = 0.1 # time between ticks
         self.spin_rate = 1 * self.dt # spin rate in radians
@@ -39,7 +46,9 @@ class FishSpinner(Node) :
         self.euler_yaw += self.spin_rate
         self.euler_yaw = (self.euler_yaw + math.pi) % (2 * math.pi) - math.pi
         new_fish_pose = Pose()
-        new_fish_pose.position = self.fish_pose.position
+        new_fish_pose.position.x = self.x + self.x_offset * math.cos(self.euler_yaw) - self.y_offset * math.sin(self.euler_yaw)
+        new_fish_pose.position.y = self.y + self.x_offset * math.sin(self.euler_yaw) + self.y_offset * math.sin(self.euler_yaw)
+        new_fish_pose.position.z = self.z
         new_fish_pose.orientation = quaternion_from_euler([self.euler_roll, self.euler_pitch, self.euler_yaw])
         out_pwcs = PoseWithCovarianceStamped()
         out_pwcs.pose.pose = new_fish_pose
